@@ -1,0 +1,5 @@
+image: wodby/php:8.3
+
+composer-install:
+  script: 
+    - composer install
