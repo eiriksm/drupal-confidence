@@ -22,7 +22,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
 
-      - name: Install dependencies
+      - name: Composer validate
         run: composer validate --no-check-version --no-check-publish
 
   composer-install:
