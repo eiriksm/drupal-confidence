@@ -1,17 +1,17 @@
 image: wodby/php:8.3
 
-# You might want to create and access a service (like a database) as part
-# of your Pipeline workflow. You can do so by defining it as a service here
 pipelines:
     default:
-
-        # Each Pipeline consists of one or more steps which each execute
-        # sequentially in separate docker containers.
-        #
-        # name: optional name for this step
-        # script: the commands you wish to execute in this step, in order
-
         - step:
+            caches:
+              - composer
+            name: Composer validate
+            script:
+                - composer install
+                - composer validate --no-check-version --no-check-publish
+        - step:
+            caches:
+              - composer
             name: Composer install
             script:
                 - composer install
