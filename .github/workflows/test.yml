@@ -6,6 +6,25 @@ on:
   pull_request:
 
 jobs:
+  composer-validate:
+    name: Composer validate
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version:
+          - "8.3"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+
+      - name: Composer validate
+        run: composer validate --no-check-version --no-check-publish
+
   composer-install:
     name: Composer install
     runs-on: ubuntu-latest
