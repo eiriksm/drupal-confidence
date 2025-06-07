@@ -47,6 +47,11 @@ jobs:
   phpunit:
     name: PHPUnit
     runs-on: ubuntu-latest
+    services:
+      chromedriver:
+        image: selenium/standalone-chromium
+        ports:
+          - 4444:4444
     strategy:
       matrix:
         php-version:
@@ -65,3 +70,5 @@ jobs:
 
       - name: Install Drupal
         run: composer site-install
+
+      - run: curl chromedriver:4444/wd/hub/status

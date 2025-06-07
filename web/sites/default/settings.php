@@ -897,3 +897,12 @@ if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings.local.php';
 }
 $settings['config_sync_directory'] = $app_root . '/../config/sync';
+
+// Quick hack for CI.
+if (getenv('CI')) {
+  // Use sqlite.
+  $databases['default']['default'] = [
+    'driver' => 'sqlite',
+    'database' => $app_root . '/../config/sync/drupal.sqlite',
+  ];
+}

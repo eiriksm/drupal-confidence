@@ -36,6 +36,7 @@ module:
   path: 0
   path_alias: 0
   search: 0
+  sqlite: 0
   system: 0
   taxonomy: 0
   test_module: 0
