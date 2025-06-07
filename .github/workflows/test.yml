@@ -47,9 +47,6 @@ jobs:
   phpunit:
     name: PHPUnit
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: /var/www/html
     container:
       image: wodby/php:8.3
       options: "--user root"
