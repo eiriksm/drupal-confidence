@@ -14,10 +14,7 @@ class LogInTest extends ExistingSiteSelenium2DriverTestBase {
    */
   public function testLogin() {
     $user = $this->createUser();
-    $this->visit('/user/login');
-    $page = $this->getSession()->getPage();
-    $page->fillField('name', $user->getAccountName());
-    $page->fillField('pass', $user->getPassword());
-    $page->findButton('Log in')->click();
+    $this->drupalLogin($user);
   }
+
 }
