@@ -16,9 +16,17 @@
     ],
     "require": {
         "composer/installers": "^2.3",
+        "drupal/admin_toolbar": "^3.6",
+        "drupal/coffee": "^2.0",
         "drupal/core-composer-scaffold": "^11.1",
         "drupal/core-project-message": "^11.1",
-        "drupal/core-recommended": "^11.1"
+        "drupal/core-recommended": "^11.1",
+        "drush/drush": "^13.6"
+    },
+    "scripts": {
+        "site-install": [
+            "drush site:install --yes --existing-config"
+        ]
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -95,5 +103,12 @@
                 "      composer remove drupal/core-project-message"
             ]
         }
+    },
+    "require-dev": {
+        "behat/mink": "^1.12",
+        "behat/mink-selenium2-driver": "^1.7",
+        "phpunit/phpunit": "^10.5",
+        "webflo/drupal-finder": "^1.3",
+        "weitzman/drupal-test-traits": "^2.5"
     }
 }
