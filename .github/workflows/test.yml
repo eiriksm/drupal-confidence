@@ -71,7 +71,7 @@ jobs:
       - name: Install Drupal
         run: composer site-install
 
-      - run: curl chromedriver:4444/wd/hub/status
+      - run: curl localhost:4444/wd/hub/status
 
       - name: Run PHPUnit
         run: composer phpunit
