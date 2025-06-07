@@ -47,6 +47,8 @@ jobs:
   phpunit:
     name: PHPUnit
     runs-on: ubuntu-latest
+    container:
+      image: wodby/php:8.3
     services:
       chromedriver:
         image: selenium/standalone-chromium
@@ -71,7 +73,9 @@ jobs:
       - name: Install Drupal
         run: composer site-install
 
-      - run: curl localhost:4444/wd/hub/status
+      - run: curl chromedriver:4444/wd/hub/status
 
       - name: Run PHPUnit
         run: composer phpunit
+        env:
+          DTT_MINK_DRIVER_ARGS: '[\"chrome\", {\"browserName\":\"chrome\",\"goog:chromeOptions\":{\"w3c\":false,\"args\":[\"--headless\", \"--disable-gpu\", \"--no-sandbox\", \"--disable-dev-shm-usage\"]}}, \"http://host.docker.internal:8643/wd/hub\"]'
