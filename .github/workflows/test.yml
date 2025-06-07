@@ -52,6 +52,7 @@ jobs:
         working-directory: /var/www/html
     container:
       image: wodby/php:8.3
+      options: "--user root"
     services:
       chromedriver:
         image: selenium/standalone-chromium
