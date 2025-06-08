@@ -47,10 +47,9 @@ jobs:
   phpunit:
     name: PHPUnit
     runs-on: ubuntu-latest
-    container:
-      image: wodby/php:8.3
-      options: "--user root"
     services:
+      db:
+        image: mysql:8.0
       chromedriver:
         image: selenium/standalone-chromium
         ports:
