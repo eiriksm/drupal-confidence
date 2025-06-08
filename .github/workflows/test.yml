@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: wodby/drupal-php:8.3
-      options: "--user=1000"
+      options: --user wodby
     services:
       db:
         image: mysql:8.0
@@ -62,12 +62,6 @@ jobs:
         php-version:
           - "8.3"
     steps:
-      - name: Create checkout dir
-        run: |
-          mkdir -p ${GITHUB_WORKSPACE}
-          ls -lah /
-          ls -lah ${GITHUB_WORKSPACE}
-          chmod -R 777 ${GITHUB_WORKSPACE}/..
       - name: Checkout
         uses: actions/checkout@v4
 
