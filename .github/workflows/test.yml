@@ -64,9 +64,7 @@ jobs:
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: 1
       chromedriver:
-        image: selenium/standalone-chromium:137.0-chromedriver-137.0
-        ports:
-          - 4444:4444
+        image: zenika/alpine-chrome:124-with-chromedriver
     strategy:
       matrix:
         php-version:
@@ -82,5 +80,6 @@ jobs:
       - name: Run PHPUnit
         run: composer phpunit
         env:
+          SIMPLETEST_BASE_URL: "http://web"
           DTT_BASE_URL: "http://web"
-          DTT_MINK_DRIVER_ARGS: "[\"chrome\", {\"browserName\":\"chromium\",\"goog:chromeOptions\":{\"w3c\":false,\"args\":[\"--headless\", \"--disable-gpu\", \"--no-sandbox\", \"--disable-dev-shm-usage\"]}}, \"http://chromedriver:4444/wd/hub\"]"
+          DTT_MINK_DRIVER_ARGS: "[\"chrome\", {\"browserName\":\"chrome\",\"goog:chromeOptions\":{\"w3c\":false,\"args\":[\"--headless\", \"--disable-gpu\", \"--no-sandbox\", \"--disable-dev-shm-usage\"]}}, \"http://chromedriver:9515\"]"
