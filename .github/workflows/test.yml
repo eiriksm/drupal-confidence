@@ -49,6 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: wodby/drupal-php:8.3
+      options: --user root
     services:
       php:
         image: wodby/drupal-php:8.3
