@@ -76,9 +76,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Install dependencies
         run: composer --verbose install
-
-      - run: ls -lah /
-
       - name: Install Drupal
         run: composer site-install
 
@@ -86,4 +83,4 @@ jobs:
         run: composer phpunit
         env:
           DTT_BASE_URL: "http://web"
-          DTT_MINK_DRIVER_ARGS: "[\"chrome\", {\"browserName\":\"chrome\",\"goog:chromeOptions\":{\"w3c\":false,\"args\":[\"--headless\", \"--disable-gpu\", \"--no-sandbox\", \"--disable-dev-shm-usage\"]}}, \"http://chromedriver:4444/wd/hub\"]"
+          DTT_MINK_DRIVER_ARGS: "[\"chrome\", {\"browserName\":\"chromium\",\"goog:chromeOptions\":{\"w3c\":false,\"args\":[\"--headless\", \"--disable-gpu\", \"--no-sandbox\", \"--disable-dev-shm-usage\"]}}, \"http://chromedriver:4444/wd/hub\"]"
