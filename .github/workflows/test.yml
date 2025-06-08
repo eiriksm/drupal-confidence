@@ -61,6 +61,8 @@ jobs:
           - ${{ github.workspace }}:/var/www/html
       db:
         image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: 1
       chromedriver:
         image: selenium/standalone-chromium:137.0-chromedriver-137.0
         ports:
