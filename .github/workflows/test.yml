@@ -54,7 +54,7 @@ jobs:
       db:
         image: mysql:8.0
       chromedriver:
-        image: selenium/standalone-chromium
+        image: selenium/standalone-chromium:137.0-chromedriver-137.0
         ports:
           - 4444:4444
     strategy:
@@ -62,6 +62,8 @@ jobs:
         php-version:
           - "8.3"
     steps:
+      - name: Create checkout dir
+        run: mkdir -p ${GITHUB_WORKSPACE} && chmod 777 ${GITHUB_WORKSPACE}
       - name: Checkout
         uses: actions/checkout@v4
 
