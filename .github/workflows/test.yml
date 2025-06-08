@@ -63,7 +63,11 @@ jobs:
           - "8.3"
     steps:
       - name: Create checkout dir
-        run: mkdir -p ${GITHUB_WORKSPACE} && chmod 777 ${GITHUB_WORKSPACE}
+        run: |
+          mkdir -p ${GITHUB_WORKSPACE}
+          ls -lah /
+          ls -lah ${GITHUB_WORKSPACE}
+          chmod -R 777 ${GITHUB_WORKSPACE}/..
       - name: Checkout
         uses: actions/checkout@v4
 
