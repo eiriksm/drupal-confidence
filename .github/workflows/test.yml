@@ -47,6 +47,9 @@ jobs:
   phpunit:
     name: PHPUnit
     runs-on: ubuntu-latest
+    container:
+      image: wodby/drupal-php:8.3
+      options: "--user=1000"
     services:
       db:
         image: mysql:8.0
@@ -64,6 +67,8 @@ jobs:
 
       - name: Install dependencies
         run: composer --verbose install
+
+      - run: ls -lah /
 
       - name: Install Drupal
         run: composer site-install
