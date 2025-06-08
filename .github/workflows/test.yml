@@ -51,6 +51,14 @@ jobs:
       image: wodby/drupal-php:8.3
       options: --user 1001
     services:
+      php:
+        image: wodby/drupal-php:8.3
+        volumes:
+          - ${{ github.workspace }}:/var/www/html
+      web:
+        image: wodby/nginx:1
+        volumes:
+          - ${{ github.workspace }}:/var/www/html
       db:
         image: mysql:8.0
       chromedriver:
@@ -79,4 +87,5 @@ jobs:
       - name: Run PHPUnit
         run: composer phpunit
         env:
+          DTT_BASE_URL: "http://web"
           DTT_MINK_DRIVER_ARGS: "[\"chrome\", {\"browserName\":\"chrome\",\"goog:chromeOptions\":{\"w3c\":false,\"args\":[\"--headless\", \"--disable-gpu\", \"--no-sandbox\", \"--disable-dev-shm-usage\"]}}, \"http://chromedriver:4444/wd/hub\"]"
