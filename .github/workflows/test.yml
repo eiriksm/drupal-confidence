@@ -59,6 +59,10 @@ jobs:
         image: wodby/nginx:1
         volumes:
           - ${{ github.workspace }}:/var/www/html
+        env:
+          NGINX_SERVER_ROOT: /var/www/html/web
+          DOCROOT_SUBDIR: web
+          DOCROOT: /var/www/html/web
       db:
         image: mysql:8.0
         env:
