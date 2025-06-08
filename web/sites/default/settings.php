@@ -900,9 +900,12 @@ $settings['config_sync_directory'] = $app_root . '/../config/sync';
 
 // Quick hack for CI.
 if (getenv('CI')) {
-  // Use sqlite.
   $databases['default']['default'] = [
-    'driver' => 'sqlite',
-    'database' => $app_root . '/../config/sync/drupal.sqlite',
+    'driver' => 'mysql',
+    'host' => 'db',
+    'username' => 'root',
+    'password' => '',
+    'database' => 'drupal',
+    'port' => 3306,
   ];
 }
