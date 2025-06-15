@@ -23,7 +23,7 @@ jobs:
           php-version: ${{ matrix.php-version }}
 
       - name: Composer validate
-        run: composer validate --no-check-version --no-check-publish
+        run: composer validate --strict --no-check-version --no-check-publish
 
   composer-install:
     name: Composer install
