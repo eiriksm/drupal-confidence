@@ -36,6 +36,9 @@
         },
         "sort-packages": true
     },
+    "script": {
+        "update": "echo derp"
+    },
     "extra": {
         "drupal-scaffold": {
             "locations": {
