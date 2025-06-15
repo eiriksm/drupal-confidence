@@ -53,6 +53,9 @@ jobs:
     services:
       php:
         image: wodby/drupal-php:8.3
+        env:
+          CI: 1
+          PHP_FPM_CLEAR ENV: "no"
         volumes:
           - ${{ github.workspace }}:/var/www/html
       web:
