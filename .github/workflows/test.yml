@@ -77,9 +77,10 @@ jobs:
         php-version:
           - "8.3"
     steps:
-      - run: whoami && id && ls -lah ${{ github.workspace }}
       - name: Checkout
         uses: actions/checkout@v4
+      - run: whoami && id && ls -lah ${{ github.workspace }}
+      
       - name: Install dependencies
         run: composer --verbose install
       - name: Install Drupal
