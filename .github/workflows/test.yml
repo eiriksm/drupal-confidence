@@ -77,7 +77,7 @@ jobs:
         php-version:
           - "8.3"
     steps:
-      - run: whoami && id
+      - run: whoami && id && ls -lah ${{ github.workspace }}
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install dependencies
