@@ -90,6 +90,7 @@ jobs:
       - name: Run PHPUnit
         run: composer phpunit
         env:
+          SIMPLETEST_DB: mysql://root@db/drupal
           SIMPLETEST_BASE_URL: "http://web"
           DTT_BASE_URL: "http://web"
           DTT_MINK_DRIVER_ARGS: "[\"chrome\", {\"browserName\":\"chrome\",\"goog:chromeOptions\":{\"w3c\":false,\"args\":[\"--headless\", \"--disable-gpu\", \"--no-sandbox\", \"--disable-dev-shm-usage\"]}}, \"http://chromedriver:9515\"]"
