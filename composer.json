@@ -25,7 +25,7 @@
     },
     "scripts": {
         "phpunit": [
-            "vendor/bin/phpunit"
+            "vendor/bin/phpunit --verbose"
         ],
         "site-install": [
             "drush site:install --yes --existing-config"
