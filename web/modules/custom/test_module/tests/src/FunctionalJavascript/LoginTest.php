@@ -30,12 +30,7 @@ class LoginTest extends WebDriverTestBase {
    */
   public function testLogin() {
     $user = $this->createUser();
-    $this->drupalGet('/user/login');
-    $page = $this->getSession()->getPage();
-    $page->fillField('name', $user->getAccountName());
-    $page->fillField('pass', $user->pass_raw);
-    $page->findButton('Log in')->click();
-    self::assertTrue($this->drupalUserIsLoggedIn($user));
+    $this->drupalLogin($user);
   }
 
 }
