@@ -65,6 +65,7 @@ jobs:
         env:
           NGINX_SERVER_ROOT: /var/www/html/web
           DOCROOT_SUBDIR: web
+          NGINX_VHOST_PRESET: drupal11
           DOCROOT: /var/www/html/web
       db:
         image: mysql:8.0
