@@ -80,7 +80,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - run: whoami && id && ls -lah ${{ github.workspace }}
+      - run: whoami && id
       
       - name: Install dependencies
         run: composer --verbose install
