@@ -8,7 +8,7 @@ pipelines:
             name: Composer validate
             script:
                 - composer install
-                - composer validate --no-check-version --no-check-publish
+                - composer ci:validate
         - step:
             caches:
               - composer
