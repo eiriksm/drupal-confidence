@@ -8,3 +8,8 @@ composer-validate:
 composer-install:
   script:
     - composer install
+
+phpcs:
+  script:
+    - composer install
+    - composer phpcs
