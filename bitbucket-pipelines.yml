@@ -15,3 +15,11 @@ pipelines:
             name: Composer install
             script:
                 - composer install
+
+        - step:
+            caches:
+              - composer
+            name: PHPCS Drupal Coding Standards
+            script:
+                - composer install
+                - composer phpcs

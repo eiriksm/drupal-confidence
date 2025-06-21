@@ -43,3 +43,25 @@ jobs:
 
       - name: Install dependencies
         run: composer --verbose install
+
+  phpcs:
+    name: PHPCS Drupal Coding Standards
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version:
+          - "8.3"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+
+      - name: Install dependencies
+        run: composer --verbose install
+
+      - name: Run PHP CodeSniffer
+        run: composer phpcs
