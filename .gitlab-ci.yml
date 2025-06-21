@@ -1,9 +1,9 @@
 image: wodby/php:8.3
 
 composer-validate:
-  script: 
+  script:
     - composer install
-    - composer validate --no-check-version --no-check-publish
+    - composer ci:validate
 
 composer-install:
   script:
