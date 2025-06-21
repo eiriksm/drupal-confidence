@@ -45,7 +45,7 @@ jobs:
         run: composer --verbose install
 
   phpcs:
-    name: PHP CodeSniffer
+    name: PHPCS Drupal Coding Standards
     runs-on: ubuntu-latest
     strategy:
       matrix:
