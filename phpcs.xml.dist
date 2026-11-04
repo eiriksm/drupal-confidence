@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruleset name="drupal-confidence">
+    <description>Drupal coding standards for custom code in this project.</description>
+
+    <!-- Only check our own code. Contrib and core are not ours to fix. -->
+    <file>./web/modules/custom</file>
+    <file>./web/themes/custom</file>
+
+    <arg name="extensions" value="php,module,inc,install,test,profile,theme,info,yml"/>
+    <!-- Show progress and sniff codes, and colorize output. -->
+    <arg value="ps"/>
+    <arg name="colors"/>
+
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+    <rule ref="./vendor/drupal/coder/coder_sniffer/Drupal"/>
+    <rule ref="./vendor/drupal/coder/coder_sniffer/DrupalPractice"/>
+</ruleset>

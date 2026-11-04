@@ -21,7 +21,9 @@
         "drupal/core-recommended": "^11.1"
     },
     "scripts": {
-        "ci:validate": "@composer validate --no-check-version --no-check-publish --strict"
+        "ci:validate": "@composer validate --no-check-version --no-check-publish --strict",
+        "phpcs": "phpcs",
+        "phpcbf": "phpcbf"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -98,5 +100,8 @@
                 "      composer remove drupal/core-project-message"
             ]
         }
+    },
+    "require-dev": {
+        "drupal/coder": "^8.3"
     }
 }
