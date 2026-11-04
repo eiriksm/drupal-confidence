@@ -13,3 +13,5 @@ Run on GitHub Actions, GitLab CI and Bitbucket Pipelines:
 - `composer phpcs` – custom code in `web/modules/custom` and `web/themes/custom`
   follows the Drupal coding standards (see `phpcs.xml.dist`).
   Run `composer phpcbf` to fix most violations automatically.
+- `composer phpstan` – static analysis of the same custom code with PHPStan
+  (level 6, with the Drupal extension and deprecation rules; see `phpstan.neon.dist`).

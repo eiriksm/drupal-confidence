@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for the Confidence module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function confidence_help(string $route_name, RouteMatchInterface $route_match): ?string {
+  if ($route_name === 'help.page.confidence') {
+    return '<p>' . t('Example custom module, so the CI checks have custom code to check.') . '</p>';
+  }
+  return NULL;
+}

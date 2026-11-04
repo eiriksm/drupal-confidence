@@ -22,3 +22,11 @@ pipelines:
             script:
                 - composer install
                 - composer phpcs
+
+        - step:
+            caches:
+              - composer
+            name: Static analysis
+            script:
+                - composer install
+                - composer phpstan

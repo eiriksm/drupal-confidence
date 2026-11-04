@@ -1,0 +1,14 @@
+# PHPStan configuration. Extensions (phpstan-drupal, deprecation rules) are
+# loaded automatically by phpstan/extension-installer.
+parameters:
+    level: 6
+    paths:
+        - web/modules/custom
+        - web/themes/custom
+    fileExtensions:
+        - php
+        - module
+        - inc
+        - install
+        - theme
+        - profile

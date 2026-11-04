@@ -23,7 +23,8 @@
     "scripts": {
         "ci:validate": "@composer validate --no-check-version --no-check-publish --strict",
         "phpcs": "phpcs",
-        "phpcbf": "phpcbf"
+        "phpcbf": "phpcbf",
+        "phpstan": "phpstan analyse --no-progress --memory-limit=-1"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -102,6 +103,10 @@
         }
     },
     "require-dev": {
-        "drupal/coder": "^8.3"
+        "drupal/coder": "^8.3",
+        "mglaman/phpstan-drupal": "^2",
+        "phpstan/extension-installer": "^1",
+        "phpstan/phpstan": "^2",
+        "phpstan/phpstan-deprecation-rules": "^2"
     }
 }
