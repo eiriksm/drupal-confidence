@@ -21,7 +21,10 @@
         "drupal/core-recommended": "^11.1"
     },
     "scripts": {
-        "ci:validate": "@composer validate --no-check-version --no-check-publish --strict"
+        "ci:validate": "@composer validate --no-check-version --no-check-publish --strict",
+        "phpcs": "phpcs",
+        "phpcbf": "phpcbf",
+        "phpstan": "phpstan analyse --no-progress --memory-limit=-1"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -98,5 +101,12 @@
                 "      composer remove drupal/core-project-message"
             ]
         }
+    },
+    "require-dev": {
+        "drupal/coder": "^8.3",
+        "mglaman/phpstan-drupal": "^2",
+        "phpstan/extension-installer": "^1",
+        "phpstan/phpstan": "^2",
+        "phpstan/phpstan-deprecation-rules": "^2"
     }
 }

@@ -1,0 +1,5 @@
+name: Confidence
+type: module
+description: 'Example custom module, so the CI checks have custom code to check.'
+package: Custom
+core_version_requirement: ^11

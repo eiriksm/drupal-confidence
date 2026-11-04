@@ -15,3 +15,18 @@ pipelines:
             name: Composer install
             script:
                 - composer install
+        - step:
+            caches:
+              - composer
+            name: Coding standards
+            script:
+                - composer install
+                - composer phpcs
+
+        - step:
+            caches:
+              - composer
+            name: Static analysis
+            script:
+                - composer install
+                - composer phpstan
