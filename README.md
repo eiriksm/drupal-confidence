@@ -15,3 +15,10 @@ Run on GitHub Actions, GitLab CI and Bitbucket Pipelines:
   Run `composer phpcbf` to fix most violations automatically.
 - `composer phpstan` – static analysis of the same custom code with PHPStan
   (level 6, with the Drupal extension and deprecation rules; see `phpstan.neon.dist`).
+- `composer site-install` then `composer phpunit` – installs the site from
+  `config/sync` and runs the PHPUnit tests in custom modules: core test base
+  classes (like `WebDriverTestBase`) and Drupal Test Traits tests against the
+  installed site, both in a real browser.
+
+The site reads its database and hash salt from the `DRUPAL_DATABASE_URL` and
+`DRUPAL_HASH_SALT` environment variables (see `web/sites/default/settings.php`).

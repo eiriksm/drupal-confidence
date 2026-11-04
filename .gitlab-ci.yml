@@ -18,3 +18,28 @@ phpstan:
   script:
     - composer install
     - composer phpstan
+
+phpunit:
+  services:
+    - name: mysql:8.0
+      alias: mysql
+    - name: selenium/standalone-chrome:4.25.0
+      alias: chrome
+  variables:
+    # Gives the job container the "build" hostname, so the browser can reach
+    # the web server started in the job.
+    FF_NETWORK_PER_BUILD: "true"
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: drupal
+    DRUPAL_DATABASE_URL: mysql://root:root@mysql/drupal
+    DRUPAL_HASH_SALT: not-a-secret-only-used-in-ci
+    SIMPLETEST_DB: mysql://root:root@mysql/drupal
+    SIMPLETEST_BASE_URL: http://build:8888
+    DTT_BASE_URL: http://build:8888
+    MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName": "chrome", "goog:chromeOptions": {"args": ["--headless=new", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"]}}, "http://chrome:4444/wd/hub"]'
+    DTT_MINK_DRIVER_ARGS: '["chrome", {"browserName": "chrome", "goog:chromeOptions": {"args": ["--headless=new", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"]}}, "http://chrome:4444/wd/hub"]'
+  script:
+    - composer install
+    - composer site-install
+    - cd web && (PHP_CLI_SERVER_WORKERS=4 nohup php -S 0.0.0.0:8888 .ht.router.php > /tmp/php-server.log 2>&1 &) && cd ..
+    - composer phpunit
