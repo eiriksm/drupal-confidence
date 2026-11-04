@@ -28,7 +28,7 @@
         "phpcbf": "phpcbf",
         "phpstan": "phpstan analyse --no-progress --memory-limit=-1",
         "site-install": "drush site:install --existing-config --yes",
-        "phpunit": "phpunit"
+        "phpunit": "cd web && ../vendor/bin/phpunit --configuration ../phpunit.xml.dist"
     },
     "conflict": {
         "drupal/drupal": "*"
