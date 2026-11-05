@@ -53,6 +53,24 @@ pipelines:
                 - cd web && (PHP_CLI_SERVER_WORKERS=4 nohup php -S 0.0.0.0:8888 .ht.router.php > /tmp/php-server.log 2>&1 &) && cd ..
                 - composer phpunit
 
+        - step:
+            caches:
+              - composer
+            name: Behat
+            size: 2x
+            services:
+              - mysql
+              - chrome
+            script:
+                # Services share localhost with the build container, so the
+                # defaults in behat.yml work as they are.
+                - export DRUPAL_DATABASE_URL=mysql://root:root@127.0.0.1/drupal
+                - export DRUPAL_HASH_SALT=not-a-secret-only-used-in-ci
+                - composer install
+                - composer site-install
+                - cd web && (PHP_CLI_SERVER_WORKERS=4 nohup php -S 0.0.0.0:8888 .ht.router.php > /tmp/php-server.log 2>&1 &) && cd ..
+                - composer behat
+
 definitions:
     services:
         mysql:

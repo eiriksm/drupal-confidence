@@ -28,7 +28,8 @@
         "phpcbf": "phpcbf",
         "phpstan": "phpstan analyse --no-progress --memory-limit=-1",
         "site-install": "drush site:install --existing-config --yes",
-        "phpunit": "cd web && ../vendor/bin/phpunit --configuration ../phpunit.xml.dist"
+        "phpunit": "cd web && ../vendor/bin/phpunit --configuration ../phpunit.xml.dist",
+        "behat": "behat --colors"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -110,6 +111,7 @@
         "behat/mink": "^1.11",
         "behat/mink-browserkit-driver": "^2.2",
         "drupal/coder": "^8.3",
+        "drupal/drupal-extension": "^5.1",
         "lullabot/mink-selenium2-driver": "^1.7.3",
         "lullabot/php-webdriver": "^2.0.5",
         "mglaman/phpstan-drupal": "^2",

@@ -43,3 +43,22 @@ phpunit:
     - composer site-install
     - cd web && (PHP_CLI_SERVER_WORKERS=4 nohup php -S 0.0.0.0:8888 .ht.router.php > /tmp/php-server.log 2>&1 &) && cd ..
     - composer phpunit
+
+behat:
+  services:
+    - name: mysql:8.0
+      alias: mysql
+    - name: selenium/standalone-chrome:4.25.0
+      alias: chrome
+  variables:
+    FF_NETWORK_PER_BUILD: "true"
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: drupal
+    DRUPAL_DATABASE_URL: mysql://root:root@mysql/drupal
+    DRUPAL_HASH_SALT: not-a-secret-only-used-in-ci
+    BEHAT_PARAMS: '{"extensions": {"Drupal\\MinkExtension": {"base_url": "http://build:8888", "selenium2": {"wd_host": "http://chrome:4444/wd/hub"}}}}'
+  script:
+    - composer install
+    - composer site-install
+    - cd web && (PHP_CLI_SERVER_WORKERS=4 nohup php -S 0.0.0.0:8888 .ht.router.php > /tmp/php-server.log 2>&1 &) && cd ..
+    - composer behat

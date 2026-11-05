@@ -1,0 +1,34 @@
+# Behat configuration. The defaults match a web server on 127.0.0.1:8888 and
+# ChromeDriver or Selenium on 127.0.0.1:4444. Override them per environment with
+# the BEHAT_PARAMS environment variable.
+default:
+  suites:
+    default:
+      paths:
+        - '%paths.base%/tests/features'
+      contexts:
+        - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\DrupalExtension\Context\MessageContext
+  extensions:
+    Drupal\MinkExtension:
+      base_url: http://127.0.0.1:8888
+      browserkit_http: ~
+      javascript_session: selenium2
+      selenium2:
+        browser: chrome
+        wd_host: http://127.0.0.1:4444
+        capabilities:
+          extra_capabilities:
+            goog:chromeOptions:
+              args:
+                - --headless=new
+                - --disable-gpu
+                - --no-sandbox
+                - --disable-dev-shm-usage
+                - --window-size=1920,1080
+    Drupal\DrupalExtension:
+      blackbox: ~
+      api_driver: drupal
+      drupal:
+        drupal_root: web
