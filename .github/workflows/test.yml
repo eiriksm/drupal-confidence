@@ -87,3 +87,82 @@ jobs:
 
       - name: Run PHPStan
         run: composer phpstan
+
+  phpunit:
+    name: PHPUnit
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version:
+          - "8.3"
+    env:
+      DRUPAL_DATABASE_URL: mysql://root:root@127.0.0.1/drupal
+      DRUPAL_HASH_SALT: not-a-secret-only-used-in-ci
+      SIMPLETEST_DB: mysql://root:root@127.0.0.1/drupal
+      SIMPLETEST_BASE_URL: http://127.0.0.1:8888
+      DTT_BASE_URL: http://127.0.0.1:8888
+      MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName": "chrome", "goog:chromeOptions": {"args": ["--headless=new", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"]}}, "http://127.0.0.1:4444"]'
+      DTT_MINK_DRIVER_ARGS: '["chrome", {"browserName": "chrome", "goog:chromeOptions": {"args": ["--headless=new", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"]}}, "http://127.0.0.1:4444"]'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: gd, pdo_mysql
+
+      - name: Start MySQL
+        run: sudo systemctl start mysql.service
+
+      - name: Install dependencies
+        run: composer --verbose install
+
+      - name: Install site
+        run: composer site-install
+
+      - name: Start web server and ChromeDriver
+        run: |
+          cd web && PHP_CLI_SERVER_WORKERS=4 nohup php -S 127.0.0.1:8888 .ht.router.php > /tmp/php-server.log 2>&1 &
+          nohup "$CHROMEWEBDRIVER/chromedriver" --port=4444 > /tmp/chromedriver.log 2>&1 &
+
+      - name: Run PHPUnit
+        run: composer phpunit
+
+  behat:
+    name: Behat
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version:
+          - "8.3"
+    env:
+      DRUPAL_DATABASE_URL: mysql://root:root@127.0.0.1/drupal
+      DRUPAL_HASH_SALT: not-a-secret-only-used-in-ci
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: gd, pdo_mysql
+
+      - name: Start MySQL
+        run: sudo systemctl start mysql.service
+
+      - name: Install dependencies
+        run: composer --verbose install
+
+      - name: Install site
+        run: composer site-install
+
+      - name: Start web server and ChromeDriver
+        run: |
+          cd web && PHP_CLI_SERVER_WORKERS=4 nohup php -S 127.0.0.1:8888 .ht.router.php > /tmp/php-server.log 2>&1 &
+          nohup "$CHROMEWEBDRIVER/chromedriver" --port=4444 > /tmp/chromedriver.log 2>&1 &
+
+      - name: Run Behat
+        run: composer behat

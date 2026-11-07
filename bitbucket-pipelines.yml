@@ -30,3 +30,54 @@ pipelines:
             script:
                 - composer install
                 - composer phpstan
+
+        - step:
+            caches:
+              - composer
+            name: PHPUnit
+            size: 2x
+            services:
+              - mysql
+              - chrome
+            script:
+                # Services share localhost with the build container.
+                - export DRUPAL_DATABASE_URL=mysql://root:root@127.0.0.1/drupal
+                - export DRUPAL_HASH_SALT=not-a-secret-only-used-in-ci
+                - export SIMPLETEST_DB=mysql://root:root@127.0.0.1/drupal
+                - export SIMPLETEST_BASE_URL=http://localhost:8888
+                - export DTT_BASE_URL=http://localhost:8888
+                - export MINK_DRIVER_ARGS_WEBDRIVER='["chrome", {"browserName":"chrome", "goog:chromeOptions":{"args":["--headless=new", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"]}}, "http://localhost:4444/wd/hub"]'
+                - export DTT_MINK_DRIVER_ARGS="$MINK_DRIVER_ARGS_WEBDRIVER"
+                - composer install
+                - composer site-install
+                - cd web && (PHP_CLI_SERVER_WORKERS=4 nohup php -S 0.0.0.0:8888 .ht.router.php > /tmp/php-server.log 2>&1 &) && cd ..
+                - composer phpunit
+
+        - step:
+            caches:
+              - composer
+            name: Behat
+            size: 2x
+            services:
+              - mysql
+              - chrome
+            script:
+                # Services share localhost with the build container, so the
+                # defaults in behat.yml work as they are.
+                - export DRUPAL_DATABASE_URL=mysql://root:root@127.0.0.1/drupal
+                - export DRUPAL_HASH_SALT=not-a-secret-only-used-in-ci
+                - composer install
+                - composer site-install
+                - cd web && (PHP_CLI_SERVER_WORKERS=4 nohup php -S 0.0.0.0:8888 .ht.router.php > /tmp/php-server.log 2>&1 &) && cd ..
+                - composer behat
+
+definitions:
+    services:
+        mysql:
+            image: mysql:8.0
+            variables:
+                MYSQL_ROOT_PASSWORD: root
+                MYSQL_DATABASE: drupal
+        chrome:
+            image: selenium/standalone-chrome:4.25.0
+            memory: 2048
